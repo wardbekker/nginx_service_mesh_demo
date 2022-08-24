@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-agent-traces
+spec:
+  clusterIP: None 
+  selector:
+    name: grafana-agent-logs
+  ports:
+    - protocol: TCP
+      port: 4317
+      targetPort: 4317

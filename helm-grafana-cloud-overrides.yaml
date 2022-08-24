@@ -1,0 +1,21 @@
+# log nginx access log lines in json format
+nginxLogFormat: "json"
+
+# don't install a Prometheus server. Using remote write to Grafana Mimir 
+prometheusAddress: "ignoring-the-buildin-by-setting-this-value"
+
+# don't install Jaeger. Using OTLP to Grafana Tempo
+tracing:
+
+# send trace telemetry to the Grafana Agent OTLP collector
+telemetry: 
+  # The percentage of traces that are processed and exported to the telemetry backend. Float between 0 and 1.
+  samplerRatio: 1.0
+  # The configuration of exporters to send telemetry data to.
+  exporters:
+    # The configuration for an OTLP gRPC exporter.
+    otlp:
+      # The host of the OpenTelemetry gRPC exporter to connect to. Must be accessible from within the cluster.
+      host: "grafana-agent-traces.default.svc.cluster.local"
+      # The port of the OpenTelemetry gRPC exporter to connect to.
+      port: 4317
